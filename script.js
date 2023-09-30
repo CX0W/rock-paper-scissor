@@ -36,6 +36,7 @@ function getUserChoice(){
     }
 }
 
+
 function playround(playerselection,computerselection){
     console.log(playerselection,computerselection);
     if (playerselection===computerselection){
@@ -74,9 +75,80 @@ function playround(playerselection,computerselection){
         }
     }
 }
-function game(){
-    for (let i=0;i<5;i++){
-        console.log(playround(getUserChoice(),getComputerChoice()));
+// function game(){
+//     for (let i=0;i<5;i++){
+//         console.log(playround(getUserChoice(),getComputerChoice()));
+//     }
+// }
+// game();
+let userPoints=0;
+let compPoints=0;
+function point(str){
+    if (str==="Same choices, try again"){
+        //nothing
+    }
+    else if (str==="You win! Rock beats scissor"|| str==="You win! Paper beats rock"|| str==="You win! Scissor beats paper"){
+        userPoints++;
+    }
+    else{
+        compPoints++;
+    }
+
+}
+
+const rock=document.createElement('button');
+const paper=document.createElement('button');
+const scissor=document.createElement('button');
+const result=document.createElement('div');
+const points=document.createElement('div');
+rock.textContent = 'Rock';
+paper.textContent = 'Paper';
+scissor.textContent = 'Scissor';
+
+// Get the container element by its ID
+const container = document.getElementById('buttonContainer');
+
+// ...
+
+// Append the button elements to the container
+container.appendChild(rock);
+container.appendChild(paper);
+container.appendChild(scissor);
+
+// Append the result div below the buttons
+container.appendChild(result);
+container.appendChild(points);
+
+function check(){
+
+    if (userPoints===5){
+        const winner=document.createElement('h1');
+        winner.textContent="You have won the game!"
+        points.appendChild(winner);
+    }
+    else if (compPoints===5){
+        const winner=document.createElement('h1');
+        winner.textContent="You have won the game!"
+        points.appendChild(winner);
     }
 }
-game();
+rock.addEventListener('click', function() {
+    result.textContent = playround(0, getComputerChoice());
+    point(result.textContent);
+    points.textContent= `${userPoints}-${compPoints}`;
+    check();
+});
+
+paper.addEventListener('click', function() {
+    result.textContent = playround(1, getComputerChoice());
+    point(result.textContent);
+    points.textContent= `${userPoints}-${compPoints}`;
+    check();
+});
+
+scissor.addEventListener('click', function() {
+    result.textContent = playround(2, getComputerChoice());
+    point(result.textContent);
+    points.textContent= `${userPoints}-${compPoints}`
+    check();
+});
